@@ -1,0 +1,19 @@
+// app/api/auth/[...nextauth].ts
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+
+export default NextAuth({
+  providers: [
+    CredentialsProvider({
+      // Configure JWT authentication
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      // Handle JWT token
+    },
+    async session({ session, token }) {
+      // Customize session object
+    },
+  },
+});
