@@ -1,0 +1,23 @@
+// components/TaskList.tsx
+import { useEffect, useState } from 'react';
+
+export default function TaskList() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const eventSource = new EventSource('/api/tasks/stream');
+    eventSource.onmessage = (event) => {
+      const updatedTasks = JSON.parse(event.data);
+      setTasks(updatedTasks);
+    };
+    return () => eventSource.close();
+  }, []);
+
+  return (
+    <ul>
+      {tasks.map((task) => (
+        <TaskItem key={task.id} task={task} />
+      ))}
+    </ul>
+  );
+}
