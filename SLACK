@@ -1,0 +1,11 @@
+// lib/bot.ts
+import { WebClient } from '@slack/web-api';
+
+const slackClient = new WebClient(process.env.SLACK_TOKEN);
+
+export async function sendTaskNotification(task) {
+  await slackClient.chat.postMessage({
+    channel: '#tasks',
+    text: `New task: ${task.title}`,
+  });
+}
